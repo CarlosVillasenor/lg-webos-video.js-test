@@ -1,0 +1,82 @@
+<script>// "video.js": "^8.9.0"</script>
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>new app</title>
+	<style type="text/css">
+		body {
+			width: 100%;
+			height: 100%;
+			background-color: #202020;
+		}
+
+		div {
+			position: absolute;
+			height: 100%;
+			width: 100%;
+			display: table;
+		}
+
+		h1 {
+			display: table-cell;
+			vertical-align: middle;
+			text-align: center;
+			color: #FFFFFF;
+		}
+	</style>
+</head>
+
+<script src="webOSTVjs-1.2.4/webOSTV.js" charset="utf-8"></script>
+<script src="webOSTVjs-1.2.4/webOSTV-dev.js" charset="utf-8"></script>
+<script type="text/javascript">
+	//sample code for calling LS2 API
+	webOS.service.request("luna://com.palm.systemservice", {
+		method: "clock/getTime",
+		parameters: {},
+		onSuccess: function (args) {
+			console.log("UTC:", args.utc);
+		},
+		onFailure: function (args) {
+			console.log("Failed to getTime");
+		}
+	});
+</script>
+
+<!-- Is required to manually modify the node_modules directory for this imports to exist -->
+<link href="./node_modules/video.js/dist/video-js.css" rel="stylesheet">
+<script src="./node_modules/video.js/dist/video.js"></script>
+
+<body>
+	<div>
+		<video-js id="vid1" class="video-js" controls preload="auto" width="640" height="480">
+			<source src="https://d2zihajmogu5jn.cloudfront.net/elephantsdream/hls/ed_hd.m3u8"
+				type="application/x-mpegURL" />
+			<p class="vjs-no-js">To view this video please enable JavaScript, and consider upgrading to a web browser
+				that <a href="https://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a></p>
+		</video-js>
+
+		<h1>Hello, World!</h1>
+	</div>
+</body>
+
+<script>
+	var vid = document.getElementById('vid1');
+	var playerTest = videojs('vid1', {
+		controlBar: {
+			volumePanel: true,
+			pictureInPictureToggle: true,
+		},
+		spatialNavigation: {
+			enabled: true,
+			horizontalSeek: false,
+			enableKeydownListener: true
+		}
+	});
+	playerTest.ready(function () {
+		SpatialNavigation.start();
+	});
+	playerTest.log('window.player created', playerTest);
+</script>
+
+</html>
