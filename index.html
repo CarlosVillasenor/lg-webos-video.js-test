@@ -62,7 +62,8 @@
 
 <script>
 	var vid = document.getElementById('vid1');
-	var playerTest = videojs('vid1', {
+
+	var player = videojs('vid1', {
 		controlBar: {
 			volumePanel: true,
 			pictureInPictureToggle: true,
@@ -73,10 +74,13 @@
 			enableKeydownListener: true
 		}
 	});
-	playerTest.ready(function () {
-		SpatialNavigation.start();
+
+	player.ready(function () {
+		console.log(player.spatialNavigation);
+		player.spatialNavigation.start();
 	});
-	playerTest.log('window.player created', playerTest);
+
+	player.log('window.player created', player);
 </script>
 
 </html>
